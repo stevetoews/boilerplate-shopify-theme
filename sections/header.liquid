@@ -1,0 +1,47 @@
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-header__logo" href="{{ routes.root_url }}">
+      {%- if section.settings.logo != blank -%}
+        <img
+          src="{{ section.settings.logo | image_url: width: 200 }}"
+          alt="{{ shop.name | escape }}"
+          width="200"
+          height="auto"
+        />
+      {%- else -%}
+        {{ shop.name }}
+      {%- endif -%}
+    </a>
+
+    <nav class="site-nav">
+      {%- for link in linklists[section.settings.menu].links -%}
+        <a class="site-nav__link" href="{{ link.url }}">{{ link.title }}</a>
+      {%- endfor -%}
+    </nav>
+
+    <div class="site-header__icons">
+      <a href="{{ routes.cart_url }}" class="cart-icon">
+        Cart ({{ cart.item_count }})
+      </a>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}
